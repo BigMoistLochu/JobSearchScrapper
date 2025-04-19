@@ -1,6 +1,6 @@
 package application;
 
-import application.service.DiscordWebhookTriggerService;
+import application.scrappers.websites.PracujScrapperTask;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,13 +12,15 @@ public class Main {
 
     public static void main(String[] args) {
         initConfig();
-        DiscordWebhookTriggerService.send("Hey Zlomie");
+        PracujScrapperTask pracujScrapper = new PracujScrapperTask();
+        pracujScrapper.parseJobOffers();
     }
+
 
     private static void initConfig() {
         try (InputStream input = Main.class.getClassLoader().getResourceAsStream("config.properties")) {
             if (input == null) {
-                throw new RuntimeException("Nie znaleziono pliku konfiguracyjnego!");
+                throw new RuntimeException("Nie znaleziono pliku config.properties w folderze resources!");
             }
             config.load(input);
         } catch (IOException e) {

@@ -9,6 +9,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class DiscordWebhookTriggerService {
+    /**
+     * Funkcja udostepniana publicznie dla kazdego watku ktora ma za zadania triggerowac webhooka na twoim dc
+     * @param message Tresc wiadomosci jaka masz wyslac na discord
+     */
 
     public static void send(String message){
         try {
@@ -17,7 +21,8 @@ public class DiscordWebhookTriggerService {
             HttpClient client = HttpClient.newHttpClient();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            System.out.println(response.statusCode());
+            if(response.statusCode() == 204 ) System.out.println("wiadomosc zostala wyslana pomyslnie");
+
         }catch (URISyntaxException e){
             System.out.println("Blad podczas wysylania wiadomosci:::");
         } catch (IOException e) {
