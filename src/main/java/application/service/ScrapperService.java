@@ -11,9 +11,8 @@ public class ScrapperService {
         this.CACHE = jobsCache;
     }
 
-
-    public void addJobToCache(String website,Job job){
-        if(CACHE.isWebsiteAvailable(website)) CACHE.addJob(website,job);
+    public void addJobToCache(Job job){
+        if(CACHE.isWebsiteAvailable(job.website())) CACHE.addJob(job);
     }
 
 

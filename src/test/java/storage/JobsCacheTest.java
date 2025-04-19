@@ -21,11 +21,11 @@ public class JobsCacheTest {
 
     @Test
     public void getJobsByWebsite_shouldReturnAllAddedJobsForWebsite(){
-        Job job = new Job("Pracuj.pl","Junior Dev","asdhttps://...");
-        Job anotherjob = new Job("Pracuj.pl","Junior Dev","sdhttps://...");
+        Job job = new Job("Pracuj.pl","Junior Dev","https://...");
+        Job anotherjob = new Job("Pracuj.pl","Junior Dev","https://...");
 
-        cache.addJob("Pracuj.pl",job);
-        cache.addJob("Pracuj.pl",anotherjob);
+        cache.addJob(job);
+        cache.addJob(anotherjob);
 
         List<Job> jobs = cache.getJobsByWebsite("Pracuj.pl");
 
