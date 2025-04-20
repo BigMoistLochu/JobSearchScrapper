@@ -12,8 +12,6 @@ public class JobsCache {
     private final Map<String, List<Job>> CACHE = new ConcurrentHashMap<>();
 
     public void addJob(Job job){
-        if(job.website() == null) throw new IllegalArgumentException("Website cannot be null");
-        if(job.website().isBlank()) throw new IllegalArgumentException("Website cannot be blank");
         if(job == null) throw new IllegalArgumentException("Job offer cannot be null");
 
         List<Job> jobs = CACHE.get(job.website());

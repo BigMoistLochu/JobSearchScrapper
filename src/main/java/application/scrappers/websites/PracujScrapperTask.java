@@ -8,9 +8,9 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.util.List;
 
-public class PracujScrapperTask implements ScrapperTask{
+public class PracujScrapperTask implements ScrapperTask, Runnable{
 
-    private final String WEBSITE = "PracujPl;";
+    private final String WEBSITE = "PracujPl";
     private final String URL = "https://it.pracuj.pl/praca/trojmiasto;wp?rd=50&itth=38";
 
     public PracujScrapperTask() {}
@@ -25,7 +25,6 @@ public class PracujScrapperTask implements ScrapperTask{
                 System.out.println("Tytuł oferty: " + jobLink.text());
                 System.out.println("Link do oferty: " + jobLink.attr("href"));
                 Job job = new Job(WEBSITE,"title","https://...");
-                //dodaj do listy joba
 
             } else {
                 System.out.println("Nie znaleziono oferty. Struktura mogła się zmienić.");
@@ -38,4 +37,10 @@ public class PracujScrapperTask implements ScrapperTask{
     }
 
 
+    @Override
+    public void run() {
+        //to sie bedzie uruchamiac -> co x sekund -> czyli parsowane oferty beda w liscie
+        System.out.println("Zadanie wykonane o " + java.time.LocalTime.now() +
+                " w wątku: " + Thread.currentThread().getName());
+    }
 }

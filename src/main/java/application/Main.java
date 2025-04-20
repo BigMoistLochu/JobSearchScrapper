@@ -1,10 +1,14 @@
 package application;
 
+import application.scrappers.ScrapperWorker;
 import application.scrappers.websites.PracujScrapperTask;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
 
@@ -12,8 +16,8 @@ public class Main {
 
     public static void main(String[] args) {
         initConfig();
-        PracujScrapperTask pracujScrapper = new PracujScrapperTask();
-        pracujScrapper.parseJobOffers();
+        ScrapperWorker scrapperWorker = new ScrapperWorker();
+        scrapperWorker.startWork();
     }
 
 
