@@ -1,6 +1,10 @@
 package application.scrappers;
 
 
+import application.scrappers.websites.PracujScrapperTask;
+import application.service.ScrapperTaskService;
+
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -8,7 +12,15 @@ import java.util.concurrent.TimeUnit;
 
 public class ScrapperWorker {
 
-    Set<Runnable> setOfWorkers = Set.of();
+    private final ScrapperTaskService service;
+
+    private final Set<Runnable> setOfWorkers = new HashSet<>();
+
+    public ScrapperWorker(ScrapperTaskService service){
+        this.service = service;
+    }
+
+
 
     public void startWork(){
 

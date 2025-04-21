@@ -9,13 +9,13 @@ import java.util.List;
 
 public class JobsCacheTest {
 
-    private final JobsCache cache = new JobsCache();
+    private final JobsCache cache = JobsCache.getINSTANCE();
 
     public JobsCacheTest(){}
 
     @BeforeEach
     public void initCache(){
-        System.out.println("Wywolam sie potem przy inicjacji");
+
     }
 
 

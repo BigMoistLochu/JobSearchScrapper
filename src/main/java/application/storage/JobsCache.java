@@ -10,6 +10,18 @@ import java.util.concurrent.ConcurrentHashMap;
 public class JobsCache {
 
     private final Map<String, List<Job>> CACHE = new ConcurrentHashMap<>();
+    private static JobsCache INSTANCE = null;
+    /**
+     * Singleton Pattern
+     */
+    private JobsCache(){}
+
+    public synchronized static JobsCache getINSTANCE() {
+        if(INSTANCE == null){
+            INSTANCE = new JobsCache();
+        }
+        return INSTANCE;
+    }
 
     public void addJob(Job job){
         if(job == null) throw new IllegalArgumentException("Job offer cannot be null");
@@ -35,6 +47,14 @@ public class JobsCache {
             return false;
         }
         return CACHE.containsKey(website);
+    }
+
+    public int getSize(){
+        return CACHE.size();
+    }
+
+    public void clearCacheForTest(){
+        CACHE.clear();
     }
 
 }
