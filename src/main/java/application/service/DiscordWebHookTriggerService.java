@@ -8,7 +8,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class DiscordWebhookTriggerService {
+public class DiscordWebHookTriggerService {
     /**
      * Funkcja udostepniana publicznie dla kazdego watku ktora ma za zadania triggerowac webhooka na twoim dc
      * @param message Tresc wiadomosci jaka masz wyslac na discord
