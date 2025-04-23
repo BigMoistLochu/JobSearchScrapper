@@ -1,14 +1,14 @@
 package application;
 
+import application.scrappers.ScrapperJob;
 import application.scrappers.ScrapperWorker;
+import application.scrappers.parsers.NoFluffJobParser;
 import application.service.ScrapperTaskService;
 import application.storage.JobsCache;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 
 public class Main {
@@ -19,8 +19,12 @@ public class Main {
         initConfig();
 
         JobsCache cache = JobsCache.getINSTANCE();
+
         ScrapperTaskService service = new ScrapperTaskService(cache);
-        ScrapperWorker scrapperWorker = new ScrapperWorker(service);
+
+        Set<ScrapperJob> scrapperWorkers = initWorkers(service);
+
+        ScrapperWorker scrapperWorker = new ScrapperWorker(scrapperWorkers);
         scrapperWorker.startWork();
     }
 
@@ -34,6 +38,14 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException("Błąd podczas wczytywania konfiguracji", e);
         }
+    }
+
+    private static Set<ScrapperJob> initWorkers(ScrapperTaskService service){
+        Set<ScrapperJob> scrappWorkers = new HashSet<>();
+        ScrapperJob noFluffJob = new ScrapperJob("NoFluffJobs", "https://nofluffjobs.com/pl/praca-it", 5, service, new NoFluffJobParser());
+        scrappWorkers.add(noFluffJob);
+
+        return scrappWorkers;
     }
 }
 

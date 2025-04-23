@@ -17,4 +17,7 @@ public class ScrapperTaskService {
         if(jobs == null) throw new IllegalArgumentException("List cannot be null");
         if(!jobs.isEmpty()) jobs.forEach(job -> cacheInstance.addJob(job));
     }
+
+
+
 }

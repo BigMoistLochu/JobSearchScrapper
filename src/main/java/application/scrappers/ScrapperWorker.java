@@ -1,9 +1,5 @@
 package application.scrappers;
 
-
-import application.scrappers.parsers.NoFluffJobParser;
-import application.service.ScrapperTaskService;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -11,28 +7,25 @@ import java.util.concurrent.TimeUnit;
 
 public class ScrapperWorker {
 
-    private final ScrapperTaskService service;
 
-    private final Set<ScrapperJob> setOfWorkers = new HashSet<>();
+    private final Set<ScrapperJob> scrapperWorker;
 
-    public ScrapperWorker(ScrapperTaskService service){
-        this.service = service;
+    public ScrapperWorker(Set<ScrapperJob> scrapperWorkers){
+        this.scrapperWorker = scrapperWorkers;
     }
 
     public void startWork(){
-
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(3);
-        setOfWorkers.forEach(job -> {
+
+        scrapperWorker.forEach(worker -> {
             scheduler.scheduleAtFixedRate(
-                    job.getTask(),      // co ma być wykonane
-                    0,         // ile poczekać przed pierwszym wykonaniem (0 = od razu)
-                    5,         // co ile sekund powtarzać
+                    worker.getTask(),              // co ma być wykonane
+                    0,                            // ile poczekać przed pierwszym wykonaniem (0 = od razu)
+                    worker.getIntervalSeconds(), // co ile sekund powtarzać
                     TimeUnit.SECONDS
             );
         });
     }
-
-
 }
 
 

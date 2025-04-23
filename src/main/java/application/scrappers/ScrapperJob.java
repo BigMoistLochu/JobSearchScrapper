@@ -26,12 +26,17 @@ public class ScrapperJob {
     public Runnable getTask(){
         return () -> {
             try {
+                System.out.println("Scrappuje strone: " + website);
                 List<Job> parsedJobs = parser.parse(website, url);
-                service.addJobToCache(parsedJobs);
+                System.out.println("Skonczylem scrappowac strone: " + website);
             } catch (IOException e) {
                 System.out.println("Błąd parsowania dla " + website + ": " + e.getMessage());
             }
         };
+    }
+
+    public long getIntervalSeconds(){
+        return intervalSeconds;
     }
 
 
