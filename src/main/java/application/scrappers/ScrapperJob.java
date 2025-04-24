@@ -31,9 +31,10 @@ public class ScrapperJob {
             try {
                 logger.info("Zaczalem scrappowac strone: " + website);
                 List<Job> parsedJobs = parser.parse(website, url);
+                service.filterJobs(parsedJobs,website);
                 logger.info("Skonczylem scrappowac strone: " + website);
             } catch (IOException e) {
-                logger.log(Level.WARNING,"Blad parsowania dla: " + website,e);
+                logger.log(Level.WARNING,"Blad parsowania dla: " + website, e);
             }
         };
     }

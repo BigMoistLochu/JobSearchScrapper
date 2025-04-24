@@ -6,4 +6,9 @@ public record Job(String website,String title,String link) {
         if(website.isBlank() || title.isBlank() || link.isBlank()) throw new IllegalArgumentException("Fields cannot be blank");
         if(!link.startsWith("https://")) throw new IllegalArgumentException("Link should contain protocol");
     }
+
+    @Override
+    public String toString() {
+        return "Title: " + title + " link: " + link;
+    }
 }

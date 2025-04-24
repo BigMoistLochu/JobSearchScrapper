@@ -13,11 +13,19 @@ public class ScrapperTaskService {
         this.cacheInstance = jobsCache;
     }
 
-    public void addJobToCache(final List<Job> jobs) {
-        if(jobs == null) throw new IllegalArgumentException("List cannot be null");
-        if(!jobs.isEmpty()) jobs.forEach(job -> cacheInstance.addJob(job));
+    public void filterJobs(final List<Job> scrappedJobs,final String website){
+        if(scrappedJobs == null) throw new IllegalArgumentException("List cannot be null");
+        if(scrappedJobs.isEmpty()) return;
+
+        List<Job> cachedJobs = cacheInstance.getJobsByWebsite(website);
+        if(cachedJobs == null) return;
+
+        scrappedJobs.forEach(scrappedJob -> {
+            if(!cachedJobs.contains(scrappedJob)){
+                cacheInstance.addJob(scrappedJob);
+                DiscordWebHookTriggerService.send(scrappedJob.toString());
+            }
+        });
     }
-
-
 
 }
